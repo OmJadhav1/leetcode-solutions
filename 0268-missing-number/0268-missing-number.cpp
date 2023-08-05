@@ -1,18 +1,18 @@
 class Solution {
 public:
     int missingNumber(vector<int>& nums) {
-        //calculated total in range 0-n
-        //and calculated sum of all numbers in array
-        //their diff gives the remaining number
-        int  total=0;
-        int sum=0;
-        for(int i=0;i<=nums.size();i++){
-            total += i;
+        int n=nums.size();
+        set<int> s;
+        for(int i=0;i<n;i++){
+            s.insert(nums[i]);
         }
-        for(int i=0;i<nums.size();i++){
-            sum += nums[i];
+        for(int i=0;i<=n;i++){
+            if(s.find(i) != s.end()){
+                continue;
+            }else{
+                return i;
+            }
         }
-        int ans =total-sum;
-        return ans;
+        return -1;
     }
 };
