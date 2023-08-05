@@ -1,16 +1,19 @@
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
-        vector<int> sol;
-        for(int i=0;i<nums.size()-1;i++){
-            for(int j=i+1;j<nums.size();j++){
-                if(nums[i]+nums[j]==target) {
-                    sol.push_back(i);
-                    sol.push_back(j);
-                }
-           }
-            
+        int n=nums.size();
+        unordered_map<int,int> umap;
+        vector<int> ans(2,-1);
+        for(int i=0;i<n;i++){
+            int secnum= target-nums[i];
+            if(umap.find(secnum) != umap.end()){
+                ans[0] =i;
+                auto secpointer= umap.find(secnum);
+                ans[1]=secpointer->second;
+            }else{
+                umap[nums[i]] = i;
+            }
         }
-        return sol;
+        return ans;
     }
 };
