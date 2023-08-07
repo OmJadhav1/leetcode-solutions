@@ -4,19 +4,23 @@ public:
         int n=nums.size();
         int count,ans;
         count=ans=0;
-        sort(nums.begin(), nums.end());
-        for(int i=1;i<n;i++){
-            if(nums[i]-nums[i-1] == 1){
+        set<int> s;
+        for(int i=0;i<n;i++){
+            s.insert(nums[i]);
+        }
+        int ssize=s.size();
+        vector<int> ansvec(s.begin(), s.end());
+        
+        
+        for(int i=1;i<ssize;i++){
+            if(ansvec[i]-ansvec[i-1] == 1){
                 count++;
                 ans=max(count+1,ans);
-            }else if(nums[i]-nums[i-1] == 0){
-                continue;
-            }
-            else{
+            }else{
                 count=0;
             }
         }
-        if(n==0){
+        if(ssize==0){
             ans=0;
         }else if(ans==0){
             ans=1;
