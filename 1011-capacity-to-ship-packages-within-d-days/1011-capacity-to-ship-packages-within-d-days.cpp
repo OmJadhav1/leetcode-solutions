@@ -1,38 +1,39 @@
 class Solution {
 public:
-    int findDays(vector<int> &weights, int cap) {
-    int days = 1; //First day.
-    int load = 0;
-    int n = weights.size(); //size of array.
-    for (int i = 0; i < n; i++) {
-        if (load + weights[i] > cap) {
-            days += 1; //move to next day
-            load = weights[i]; //load the weight.
+    bool cal(vector<int>& weights, int days,int mid){
+        int count=0;
+        int ans=0;
+        for(int x:weights){
+            if(ans+x<=mid){
+                ans += x;
+            }else{
+                count++;
+                if(count> days || x>mid){
+                    return false;
+                }
+                ans =x;
+            }
         }
-        else {
-            //load the weight on the same day.
-            load += weights[i];
-        }
+        if(ans<=mid) count++;
+        return count<=days?1:0;
     }
-    return days;
-}
-
     
     int shipWithinDays(vector<int>& weights, int days) {
-        int low = *max_element(weights.begin(), weights.end());
-    int high = accumulate(weights.begin(), weights.end(), 0);
-    while (low <= high) {
-        int mid = (low + high) / 2;
-        int numberOfDays = findDays(weights, mid);
-        if (numberOfDays <= days) {
-            //eliminate right half
-            high = mid - 1;
+        int start,end;
+        start=0;
+        end=accumulate(weights.begin(), weights.end(), 0);
+        int  mid,ans;
+        mid=ans=0;
+        while(start<=end){
+            mid= (start + end)/2;
+            bool isok=cal(weights,days,mid);
+            if(isok){
+                ans=mid;
+                end=mid-1;
+            } 
+            else start=mid+1;
         }
-        else {
-            //eliminate left half
-            low = mid + 1;
-        }
-    }
-    return low;
+        return ans;
+        
     }
 };
