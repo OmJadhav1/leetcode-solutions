@@ -1,3 +1,6 @@
-here we have handled 0/1 size ll
-and for other cases we reversed it with three pointers prev,curr,and forward.
-for logic refer while loop
+there is a recersive approach also
+we will convert itrative approach to recursive
+base case will hit when curr will be NULL retrun prev as head
+one recursive case will be make make recursion to solve other casesby providing forward=curr->next, prev = curr
+then curr->next = prev
+​
