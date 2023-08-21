@@ -10,22 +10,20 @@
  */
 class Solution {
 public:
+    void recursion(ListNode* &head,ListNode* curr,ListNode* prev) {
+        if(curr == NULL){
+            head = prev;
+            return;
+        }
+        
+        recursion(head,curr->next, curr);
+        curr->next = prev;
+    }
+    
     ListNode* reverseList(ListNode* head) {
-        if(head == NULL || head->next == NULL){
-            return head;
-        }
-        
+        ListNode* curr= head;
         ListNode* prev = NULL;
-        ListNode* curr = head;
-        ListNode* forward = NULL;
-        
-        while(curr != NULL){
-            forward= curr->next;
-            curr->next = prev;
-            prev= curr;
-            curr=forward;
-        }
-        
-        return prev;
+        recursion(head, curr, prev);
+        return head;
     }
 };
