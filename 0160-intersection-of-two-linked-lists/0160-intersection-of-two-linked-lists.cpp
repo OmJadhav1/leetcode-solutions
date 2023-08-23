@@ -9,22 +9,40 @@
 class Solution {
 public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
-        //in this approach we stored all nodes of ll1 in set
-        //and search for common node in ll2
-        set<ListNode*> s;
-        ListNode* temp1 = headA;
-        ListNode* temp2 = headB;
-        while(temp1 != NULL){
-            
-            s.insert(temp1);
+        ListNode * temp1=headA;
+        ListNode* temp2=headB;
+        int count1,count2;
+        count1=count2=0;
+        while(temp1!=NULL){
+            count1++;
             temp1=temp1->next;
         }
         
         while(temp2!=NULL){
-            if(s.find(temp2) != s.end()){
-                return temp2;
-            }
+            count2++;
             temp2=temp2->next;
+        }
+        temp1=headA;
+        temp2=headB;
+        if(count1>count2){
+            while(count1 != count2){
+                temp1=temp1->next;
+                count1--;
+            }
+        }else{
+            while(count2 != count1){
+                temp2=temp2->next;
+                count2--;
+            }
+            
+        }
+        while(temp2 != NULL){
+            if(temp1 == temp2){
+                return temp1;
+            }else{
+                temp1=temp1->next;
+                temp2=temp2->next;
+            }       
         }
         return NULL;
     }
