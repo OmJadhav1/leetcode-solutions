@@ -4,22 +4,6 @@ class Solution
         vector<vector < int>> generate(int numRows)
         {
             vector<vector < int>> ans(numRows,vector<int> (numRows+1,0));
-//             vector<int> col(numRows);
-//             for (int i = 0; i < numRows; i++)
-//             {
-//                 col[i] = i + 1;
-//             }
-
-//             for (int i = 0; i < numRows; i++)
-//             {
-//                 int column = col[i];
-
-//                 ans[i] = vector<int> (column);
-//                 for (int j = 0; j < column; j++)
-//                 {
-//                     ans[i][j] = j + 1;
-//                 }
-//             }
             for (int i = 0; i < numRows; i++)
             {
                 ans[i].resize(i+1);
