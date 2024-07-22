@@ -1,23 +1,29 @@
 class Solution {
 public:
     vector<int> successfulPairs(vector<int>& spells, vector<int>& potions, long long success) {
-        int n = spells.size();
-        int m = potions.size();
-        vector<int> ans(n);
 
-        // Sort potions to enable binary search
+        vector<int> sol(spells.size(), 0);
+        int n = potions.size();
+
         sort(potions.begin(), potions.end());
 
-        // Iterate over each spell
-        for (int i = 0; i < n; i++) {
-            long long minPotion = (success + spells[i] - 1) / spells[i]; // Ceiling of success/spells[i]
+        for (int i = 0; i < spells.size(); ++i) {
+            int l = 0;
+            int r = n - 1;
+            while (l <= r) {
+                auto mid = l + (r - l) / 2;
 
-            // Binary search to find the first potion that is >= minPotion
-            auto it = lower_bound(potions.begin(), potions.end(), minPotion);
-
-            // Calculate the number of potions that meet the criteria
-            ans[i] = potions.end() - it;
+                const long long cand =(long long)spells[i] * (long long)potions[mid];
+                if (cand < success) {
+                    l = mid + 1;
+                } else {
+                    r = mid - 1;
+                }
+            }
+            //derived
+            sol[i] = n - r - 1;
         }
-        return ans;
+
+        return sol;
     }
 };
