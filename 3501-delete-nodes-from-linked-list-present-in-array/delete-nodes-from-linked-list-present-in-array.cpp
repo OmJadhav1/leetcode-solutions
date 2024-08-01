@@ -11,22 +11,27 @@
 class Solution {
 public:
     ListNode* modifiedList(vector<int>& nums, ListNode* head) {
+        //nikal means dont stay in list
+        //reh means stay in list
         set<int> s(nums.begin(), nums.end());
         int n = nums.size();
-        ListNode* temp = head;
-        ListNode* prev = head;
+        ListNode* nikal = head;
+        ListNode* reh = head;
 
-        while (temp!= NULL) {
-            int num = temp->val;
-            if (s.find(num) != s.end()) {
-                if (head == temp) {
-                    head = head->next;
-                } else {
-                    prev->next = temp->next;
+        while (nikal!= NULL) {
+            if(s.find(nikal->val)!= s.end()){
+                if(nikal==head){
+                    head=head->next;
+                    nikal=head;
+                    reh=head;
+                }else{
+                    reh->next=nikal->next;
+                    nikal=nikal->next;
                 }
-            }else
-                prev=temp;
-            temp = temp->next;
+            }else{
+                reh=nikal;
+                nikal=nikal->next;
+            }
         }
         return head;
     }
