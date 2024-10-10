@@ -26,7 +26,8 @@ public:
 
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                solve(matrix, dp, i, j, m, n);
+                if(matrix[i][j] == '1')
+                    solve(matrix, dp, i, j, m, n);
             }
         }
         int ans = 0;
